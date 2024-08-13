@@ -1,0 +1,40 @@
+@import "variables";
+@import "todoList";
+@import "todoInput";
+@import "alert";
+@import "buttons";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #f0f0f5;
+}
+
+.header {
+  text-align: center;
+  padding: 1.2rem 0;
+  background-color: $primary-color;
+
+  &__title {
+    font-size: 2rem;
+    color: $secondary-color;
+    font-weight: 500;
+  }
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+.completed-tasks {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+}

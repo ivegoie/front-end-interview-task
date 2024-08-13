@@ -1,0 +1,16 @@
+.delete-buttons {
+  display: flex;
+  padding: 1rem 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  &__btn {
+    background-color: #ff4136;
+    color: #fff;
+    border: none;
+    border-radius: $border-radius;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+  }
+}

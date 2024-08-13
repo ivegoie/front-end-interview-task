@@ -1,0 +1,50 @@
+.successfully {
+  padding: 20px;
+  background-color: #2eb886;
+  color: white;
+  margin-bottom: 15px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.warning {
+  padding: 20px;
+  background-color: #f6de58;
+  color: black;
+  margin-bottom: 15px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.error {
+  padding: 20px;
+  background-color: #f66358;
+  color: white;
+  margin-bottom: 15px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
