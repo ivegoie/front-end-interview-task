@@ -2,6 +2,10 @@
 
 ## Project Overview
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3f4aa3fd-868a-4213-b1da-f6461dfdfe8d/deploy-status)](https://app.netlify.com/sites/ivanz-todo/deploys)
+
+[Live Demo](https://ivanz-todo.netlify.app/)
+
 Welcome! 😊 This project is a To-Do app built as part of a front-end job interview task. The app allows users to manage their tasks through a clean and responsive interface. It also integrates with the DummyJSON ToDo API to fetch tasks. Below, you'll find details about the project's setup, features, and development guidelines.
 
 ## Table of Contents
