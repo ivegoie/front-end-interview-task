@@ -3,10 +3,7 @@ import { TodoList } from "./TodoList";
 import { todos } from "../utils/todos";
 import { showAlert } from "./Alert";
 
-export const createDeleteButtons = (): HTMLDivElement => {
-  const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("delete-buttons");
-
+const createDeleteAllButton = (): HTMLButtonElement => {
   const deleteAllButton = document.createElement("button");
   deleteAllButton.textContent = "Delete All Tasks";
   deleteAllButton.classList.add("delete-buttons__btn");
@@ -21,6 +18,10 @@ export const createDeleteButtons = (): HTMLDivElement => {
     TodoList();
   });
 
+  return deleteAllButton;
+};
+
+const createDeleteManualButton = (): HTMLButtonElement => {
   const deleteManualButton = document.createElement("button");
   deleteManualButton.textContent = "Delete Manual Tasks";
   deleteManualButton.classList.add("delete-buttons__btn");
@@ -37,6 +38,10 @@ export const createDeleteButtons = (): HTMLDivElement => {
     }
   });
 
+  return deleteManualButton;
+};
+
+const createDeleteApiButton = (): HTMLButtonElement => {
   const deleteApiButton = document.createElement("button");
   deleteApiButton.textContent = "Delete API Tasks";
   deleteApiButton.classList.add("delete-buttons__btn");
@@ -52,6 +57,17 @@ export const createDeleteButtons = (): HTMLDivElement => {
       showAlert("No API tasks found to delete.", "error");
     }
   });
+
+  return deleteApiButton;
+};
+
+export const createDeleteButtons = (): HTMLDivElement => {
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("delete-buttons");
+
+  const deleteAllButton = createDeleteAllButton();
+  const deleteManualButton = createDeleteManualButton();
+  const deleteApiButton = createDeleteApiButton();
 
   buttonContainer.appendChild(deleteAllButton);
   buttonContainer.appendChild(deleteManualButton);
