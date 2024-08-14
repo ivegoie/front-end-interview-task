@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Welcome! 😊 This project is a To-Do app built as part of a front-end job interview task. The app allows users to manage their tasks through a clean and responsive interface. It also integrates with the DummyJSON ToDo API to fetch tasks dynamically. Below, you'll find details about the project's setup, features, and development guidelines.
+Welcome! 😊 This project is a To-Do app built as part of a front-end job interview task. The app allows users to manage their tasks through a clean and responsive interface. It also integrates with the DummyJSON ToDo API to fetch tasks. Below, you'll find details about the project's setup, features, and development guidelines.
 
 ## Table of Contents
 
