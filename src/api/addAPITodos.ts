@@ -1,23 +1,41 @@
 import { showAlert } from "../components/Alert";
 import { TodoList } from "../components/TodoList";
 import { todos } from "../utils/todos";
+import { z } from "zod";
+
+const todoSchema = z.object({
+  todo: z.string(),
+  id: z.number(),
+  completed: z.boolean(),
+});
+
+const apiResponseSchema = z.object({
+  todos: z.array(todoSchema),
+});
+
+type ApiTodo = z.infer<typeof todoSchema>;
 
 export const addAPITodos = async (count: number) => {
   try {
     const response = await fetch(`https://dummyjson.com/todos?limit=${count}`);
     const data = await response.json();
-    const apiTodos = data.todos;
 
-    apiTodos.forEach(
-      (apiTodo: { todo: string; id: number; completed: boolean }) => {
-        todos.push({
-          text: apiTodo.todo,
-          id: apiTodo.id,
-          fromApi: true,
-          completed: false,
-        });
-      }
-    );
+    const parsedData = apiResponseSchema.safeParse(data);
+
+    if (!parsedData.success) {
+      throw new Error("Invalid API response format");
+    }
+
+    const apiTodos: ApiTodo[] = parsedData.data.todos;
+
+    apiTodos.forEach((apiTodo) => {
+      todos.push({
+        text: apiTodo.todo,
+        id: apiTodo.id,
+        fromApi: true,
+        completed: false,
+      });
+    });
 
     showAlert(
       `${
@@ -28,11 +46,10 @@ export const addAPITodos = async (count: number) => {
       "successfully"
     );
 
-    console.log(todos);
-
     TodoList();
   } catch (error) {
     showAlert("Failed to fetch API todos. Please try again.", "error");
+
     if (count !== 1) {
       showAlert("Insert a number to fetch Todos.", "warning");
     }
