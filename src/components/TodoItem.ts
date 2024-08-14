@@ -19,8 +19,13 @@ export const createTodoItem = (
   todoText.classList.add("todo__text");
   todoText.textContent = todo.text;
 
-  fromApi ? todoItem.classList.add("api") : "";
-  todo.completed ? todoText.classList.add("completed") : "";
+  if (fromApi) {
+    todoItem.classList.add("api");
+  }
+
+  if (todo.completed) {
+    todoText.classList.add("completed");
+  }
 
   const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
