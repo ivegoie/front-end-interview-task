@@ -8,10 +8,10 @@ const createDeleteAllButton = (): HTMLButtonElement => {
   deleteAllButton.textContent = "Delete All Tasks";
   deleteAllButton.classList.add("delete-buttons__btn");
   deleteAllButton.addEventListener("click", () => {
-    todos.length = 0;
     if (todos.length === 0) {
       showAlert("No tasks found to delete.", "error");
     } else {
+      todos.length = 0;
       showAlert("All tasks have been deleted!", "successfully");
       TodoList();
     }
