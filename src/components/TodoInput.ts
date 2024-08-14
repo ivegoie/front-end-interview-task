@@ -15,6 +15,8 @@ const TodoInput = (props: TodoInput): HTMLDivElement => {
   const input = document.createElement("input");
   const button = document.createElement("button");
 
+  let isLoading = false;
+
   input.classList.add("input-container__todo-input");
   input.setAttribute("placeholder", props.placeholder);
   input.setAttribute("type", props.type);
@@ -27,11 +29,34 @@ const TodoInput = (props: TodoInput): HTMLDivElement => {
   container.appendChild(input);
   container.appendChild(button);
 
+  const setLoadingState = (loading: boolean) => {
+    isLoading = loading;
+
+    if (isLoading) {
+      button.disabled = true;
+      button.textContent = "Loading...";
+      button.style.cursor = "default";
+    } else {
+      button.disabled = false;
+      button.textContent = props.title;
+      button.style.cursor = "pointer";
+    }
+  };
+
   if (input.getAttribute("type") === "number") {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const count = parseInt(input.value);
-      addAPITodos(count);
-      input.value = "";
+      if (!isNaN(count)) {
+        setLoadingState(true);
+        try {
+          await addAPITodos(count);
+        } finally {
+          setLoadingState(false);
+          input.value = "";
+        }
+      } else {
+        showAlert("Please enter a valid number!", "warning");
+      }
     });
   } else {
     button.addEventListener("click", () => {
