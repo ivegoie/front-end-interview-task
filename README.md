@@ -46,8 +46,15 @@ Ensure you have the following installed on your system:
    ```bash
    git clone https://github.com/ivegoie/front-end-interview-task.git
    ```
+   
+2. **Navigate to the Project folder**
+
+   ```bash
+   cd front-end-interview-task
+   ```
 
 2. **Install Dependencies**
+
    If you're using npm:
 
    ```bash
@@ -60,7 +67,8 @@ Ensure you have the following installed on your system:
    yarn install
    ```
 
-3. **Run the Development Server**
+4. **Run the Development Server**
+
    Start the vite development server:
 
    ```bash
