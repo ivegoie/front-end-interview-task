@@ -47,8 +47,7 @@
     }
 
     &__text {
-      flex-grow: 1;
-      margin-right: 1rem;
+      margin-right: auto;
       font-size: 1rem;
     }
 
@@ -63,6 +62,9 @@
 
       &:hover {
         background-color: darken(#ff4136, 10%);
+      }
+      &__hidden {
+        display: none;
       }
     }
   }

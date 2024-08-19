@@ -8,16 +8,67 @@ interface TodoItem {
   fromApi?: boolean;
 }
 
+let draggedItem: HTMLLIElement | null = null;
+
+const handleDragStart = (event: DragEvent) => {
+  draggedItem = event.currentTarget as HTMLLIElement;
+  event.dataTransfer?.setData("text/plain", draggedItem.dataset.id!);
+  setTimeout(() => {
+    draggedItem!.classList.add("todo__hidden");
+  }, 0);
+};
+
+const handleDragOver = (event: DragEvent) => {
+  event.preventDefault();
+};
+
+const handleDrop = (event: DragEvent) => {
+  event.preventDefault();
+
+  const target = event.currentTarget as HTMLLIElement;
+
+  if (draggedItem && draggedItem !== target) {
+    const ul = target.parentNode as HTMLUListElement;
+    const draggedIndex = Array.from(ul.children).indexOf(draggedItem);
+    const targetIndex = Array.from(ul.children).indexOf(target);
+
+    const [movedTodo] = todos.splice(draggedIndex, 1);
+    todos.splice(targetIndex, 0, movedTodo);
+
+    ul.insertBefore(
+      draggedItem,
+      targetIndex > draggedIndex ? target.nextSibling : target
+    );
+    saveTodosLocalStorage();
+  }
+};
+
+const handleDragEnd = () => {
+  draggedItem?.classList.remove("todo__hidden");
+  draggedItem = null;
+};
+
 export const createTodoItem = (
   todo: TodoItem,
   fromApi: boolean | undefined
 ): HTMLLIElement => {
   const todoItem = document.createElement("li");
+  todoItem.setAttribute("draggable", "true");
+  todoItem.dataset.id = todo.id.toString();
   todoItem.classList.add("todo");
 
   const todoText = document.createElement("p");
+  todoText.setAttribute("contenteditable", "true");
   todoText.classList.add("todo__text");
   todoText.textContent = todo.text;
+
+  todoText.addEventListener("blur", () => {
+    const updatedText = todoText.textContent?.trim();
+    if (updatedText) {
+      todo.text = updatedText;
+      saveTodosLocalStorage();
+    }
+  });
 
   if (fromApi) {
     todoItem.classList.add("api");
@@ -32,7 +83,7 @@ export const createTodoItem = (
   checkbox.classList.add("todo__checkbox");
   checkbox.checked = todo.completed || false;
 
-  todoText.addEventListener("click", () => {
+  todoItem.addEventListener("dblclick", () => {
     todo.completed = !todo.completed;
     checkbox.checked = todo.completed;
     todo.completed
@@ -60,6 +111,11 @@ export const createTodoItem = (
     updateCompletedTasksCount();
     saveTodosLocalStorage();
   });
+
+  todoItem.addEventListener("dragstart", handleDragStart);
+  todoItem.addEventListener("dragover", handleDragOver);
+  todoItem.addEventListener("drop", handleDrop);
+  todoItem.addEventListener("dragend", handleDragEnd);
 
   todoItem.appendChild(checkbox);
   todoItem.appendChild(todoText);
